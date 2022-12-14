@@ -15,7 +15,7 @@ async function getContract(id) {
             "query": id,
             "oper": "=",
             "page": "1",
-            "rp": "1000",
+            "rp": "20",
             "sortname": "id_cliente",
             "sortorder": "asc"
         }

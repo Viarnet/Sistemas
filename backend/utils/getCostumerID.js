@@ -1,8 +1,8 @@
 import axios from "axios";
 const token = '66:e5b6de1fb4f34f993f7783d572efb658fa9a51c032277e6ac794cc8cff300933';
 
-async function getID(name) {
-    await axios.get("https://sistema.viartelecom.com.br/webservice/v1/cliente", {
+async function getCostumerID(name) {
+    const ID = await axios.get("https://sistema.viartelecom.com.br/webservice/v1/cliente", {
         headers:
         {
             'Content-Type': 'application/json',
@@ -22,6 +22,8 @@ async function getID(name) {
     }).then(({data})=>{
         return data.registros[0].id;
     })
+
+    return ID
 }
 
-export default getID;
+export default getCostumerID;
