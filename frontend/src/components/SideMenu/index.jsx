@@ -6,6 +6,8 @@ import logoTexto from '../../assets/logo_texto.png';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 function SideMenu() {
   const [showMenu, setShowMenu] = useState(true)
+  const [showSubMenu, setShowSubMenu] = useState(false)
+  const [showSubMenu2, setShowSubMenu2] = useState(false)
   const auth = useContext(AuthContext);
 
   function handlesignout(){
@@ -20,33 +22,46 @@ function SideMenu() {
       <img src={logoTexto} className="logo_name"/>
     </div>
     <ul className="nav-links">
-      <li>
+    <li>
         <Link to='home'>
-          <i className='bx bx-grid-alt' ></i>
+          <i className='bx bx-home' ></i>
           <span className="link_name">Pagina Inicial</span>
-          </Link>
+        </Link>
         <ul className="sub-menu blank">
-          <li><Link to='home'><a className="link_name" >Pagina Inicial</a></Link></li>
+          <li><a className="link_name" href="#">Pagina Privada</a></li>
         </ul>
       </li>
-      {/* <li>
+      <li className={`${showSubMenu === true ? "showMenu" : ""}`}>
         <div className="iocn-link">
           <a href="#">
-            <i className='bx bx-collection' ></i>
-            <span className="link_name">Category</span>
+            <i className='bx bx-phone' ></i>
+            <span className="link_name">Tel Fixa</span>
           </a>
-          <i className='bx bxs-chevron-down arrow' ></i>
+          <i className='bx bxs-chevron-down arrow' onClick={()=>setShowSubMenu(!showSubMenu)}></i>
         </div>
         <ul className="sub-menu">
-          <li><a className="link_name" href="#">Category</a></li>
-          <li><a href="#">HTML & CSS</a></li>
-          <li><a href="#">JavaScript</a></li>
-          <li><a href="#">PHP & MySQL</a></li>
+          <li><a className="link_name" href="#">Tel Fixa</a></li>
+          <li><Link to='home'>Portabilidades</Link></li>
+          <li><Link to='privada'>Numeros Disponiveis</Link></li>
         </ul>
-      </li> */}
+      </li>
+      <li className={`${showSubMenu2 === true ? "showMenu" : ""}`}>
+        <div className="iocn-link">
+          <a href="#">
+            <i className='bx bx-mobile' ></i>
+            <span className="link_name">Tel Movel</span>
+          </a>
+          <i className='bx bxs-chevron-down arrow' onClick={()=>setShowSubMenu2(!showSubMenu2)}></i>
+        </div>
+        <ul className="sub-menu">
+          <li><a className="link_name" href="#">Tel Movel</a></li>
+          <li><Link to='privada'>Portabilidades</Link></li>
+          <li><Link to='home'>Numeros Disponiveis</Link></li>
+        </ul>
+      </li>
       {auth.user.role > 2 &&<li>
         <Link to='privada'>
-          <i className='bx bx-pie-chart-alt-2' ></i>
+          <i className='bx bx-key' ></i>
           <span className="link_name">Pagina Privada</span>
         </Link>
         <ul className="sub-menu blank">
@@ -79,7 +94,6 @@ function SideMenu() {
   <section className="home-section">
     <div className="home-content">
       <i className='bx bx-menu' onClick={()=>setShowMenu(!showMenu)}></i>
-      
     </div>
     <Outlet />
   </section>

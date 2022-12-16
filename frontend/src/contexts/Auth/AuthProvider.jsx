@@ -5,6 +5,7 @@ import { AuthContext } from "./AuthContext";
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
     const api = useApi();
 
     useEffect(() => {
@@ -15,8 +16,9 @@ export const AuthProvider = ({ children }) => {
                 const user = await api.validateToken(token, email);
                 if (!user.error) {
                     setUser(user);
+                    setLoading(false);
                 }
-            }
+            }else {setLoading(false);}
         }
         validateToken();
     }, [api]);
@@ -27,21 +29,25 @@ export const AuthProvider = ({ children }) => {
             setUser(data.user);
             localStorage.setItem('authToken', data.token);
             localStorage.setItem('email', email);
+            setLoading(false);
             return true;
-        }
+            
+        }else setLoading(false);
         return false;
     }
 
     const signout = async () => {
-        setUser(null);
         localStorage.setItem('authToken', "");
         localStorage.setItem('email', "");
+        setLoading(true)
+        setUser(null);
         //await api.logout();
+        setLoading(false);
         document.location.reload();
     }
 
     return (
-        <AuthContext.Provider value={{ user, signin, signout }}>
+        <AuthContext.Provider value={{ user, signin, signout, loading}}>
             {children}
         </AuthContext.Provider>
     );
