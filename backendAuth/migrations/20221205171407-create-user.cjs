@@ -22,6 +22,9 @@ module.exports = {
       role: {
         type: Sequelize.INTEGER
       },
+      id_colaborador: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

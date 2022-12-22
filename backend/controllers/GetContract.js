@@ -8,11 +8,10 @@ export default {
         let NomeCliente = req.params.nomeCliente;
 
         const IdCliente = await getCostumerID(NomeCliente);
-
-        const IdContrato = await getContract(IdCliente);
-
-
-        return res.status(200).json(IdContrato);
-
+        if(IdCliente){
+            const IdContrato = await getContract(IdCliente);
+            return res.status(200).json({IdContrato, IdCliente});
+        }else return res.status(200).json({msg: "ERROR", status: 0});
+        
     }
 }

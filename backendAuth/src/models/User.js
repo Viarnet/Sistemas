@@ -21,6 +21,10 @@ export const User = sequelize.define('User',{
   role: {
     type: DataTypes.INTEGER,
     allowNull: false,
+  },
+  id_colaborador: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
   }
 }, {
   // Other model options go here

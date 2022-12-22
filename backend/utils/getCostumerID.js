@@ -20,7 +20,10 @@ async function getCostumerID(name) {
             sortorder: 'desc'
         }
     }).then(({data})=>{
-        return data.registros[0].id;
+        if(data.total >=1){
+            return data.registros[0].id;
+        }else return false
+        
     })
 
     return ID

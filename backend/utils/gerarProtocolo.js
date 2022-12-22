@@ -1,5 +1,4 @@
 import axios from "axios";
-import'dotenv/config';
 let token = '66:e5b6de1fb4f34f993f7783d572efb658fa9a51c032277e6ac794cc8cff300933';
 
 async function gerarProtocolo() {

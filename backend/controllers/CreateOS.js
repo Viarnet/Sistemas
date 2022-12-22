@@ -1,28 +1,21 @@
-import getContract from'./utils/getContract';
-import getID from "./utils/getCostumerID";
-import gerarProtocolo from './utils/gerarProtocolo';
-import insertOS from "./insertOS";
+import insertOS from '../utils/insertOS.js'
+import gerarProtocolo from '../utils/gerarProtocolo.js'
 
 
 export default {
     async Create(req, res){
 
-        let IdCliente = req.body.idCliente;
-       
-        (async() =>{
-        const idCliente = await getID(IdCliente);
-        const idContrato = await getContract(id);
-        const protocol = await gerarProtocolo();
-        if(idContrato.lenght > 1){
-            const contratoEscolhido =  ('retorno do front');
-            const mensagemPadraoAbertura = ('retorno do front');
-            const mensagemPadraoEncerra = ('retorno do front');
-            await insertOS(contratoEscolhido, idCliente, mensagemAbertura, mensagemPadraoEncerra, protocol, idAtendente);
-        }else{
-            const mensagemPadraoAbertura = ('retorno do front');
-            const mensagemPadraoEncerra = ('retorno do front');
-            await insertOS(idContrato, idCliente, mensagemAbertura, mensagemPadraoEncerra, protocol, idAtendente);
-        }
-        })
+        let arrayContratos = req.body.arrayContratos;
+        let mensagemPadraoAbertura = req.body.mensagemPadraoAbertura;
+        let mensagemPadraoEncerra = req.body.mensagemPadraoEncerra;
+        let idAtendente = req.body.idColaborador;
+        const protocolo = await gerarProtocolo();
+        console.log(protocolo)
+
+        arrayContratos.forEach(async (contrato) => {
+            const result = await insertOS(contrato.id, contrato.IdCliente, mensagemPadraoAbertura, mensagemPadraoEncerra, protocolo, idAtendente);
+            console.log(result)
+        });
+        return res.status(200).json({message: 'Executado com sucesso'});
     }
 }

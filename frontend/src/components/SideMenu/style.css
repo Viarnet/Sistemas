@@ -100,13 +100,14 @@
   align-items: center;
   text-decoration: none;
 }
-.sidebar .nav-links li a .link_name{
+.sidebar .nav-links li .link_name{
   font-size: 18px;
   font-weight: 400;
   color: #fff;
   transition: all 0.4s ease;
+  cursor: pointer;
 }
-.sidebar.close .nav-links li a .link_name{
+.sidebar.close .nav-links li .link_name{
   opacity: 0;
   pointer-events: none;
 }
@@ -173,9 +174,9 @@
   width: 260px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   background: #1d1b31;
-  padding: 12px 0;
+  padding: 10px 0;
   transition: all 0.5s ease;
 }
 .sidebar.close .profile-details{
@@ -203,7 +204,7 @@
 .sidebar .profile-details .profile_name,
 .sidebar .profile-details .job{
   color: #fff;
-  font-size: 18px;
+  font-size: 90%;
   font-weight: 500;
   white-space: nowrap;
 }
