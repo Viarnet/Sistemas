@@ -1,9 +1,8 @@
 import { useContext, useState } from "react";
-import { Loading } from "../../components/Loading";
-import { Container, Button, Nome, Endereco, Id, ContainerLeft, ContainerRight, Container1 } from "./styles";
+import { Container, Button, Nome, Endereco, Id, ContainerLeft, ContainerRight, Container1, ButtonEncaminhar } from "./styles";
 import { ToastContainer, toast } from 'react-toastify';
+import './style.css'
 import 'react-toastify/dist/ReactToastify.css';
-import { Ordens } from "../../components/Ordens"; 
 
 import axios from 'axios';
 import { MiniLoading } from "../../components/MiniLoading";
@@ -12,7 +11,6 @@ export const EncaminharOS = () => {
     const [select, setSelect] = useState();
     const [os, setOS] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [selecionadas, setSelecionadas] = useState([])
 
     async function handleSearch(id){
         setLoading(true);
@@ -31,13 +29,16 @@ export const EncaminharOS = () => {
 
     function handleonChange(event, index){
         const values = [...os];
-        values[index].isAdded = event.target.checked;
-        setSelecionadas(values[index]);
+        values[index].isAdded = !values[index].isAdded;
+        event.target.value = values[index].isAdded;
+    }
+
+    function handleRegister(){
+        
     }
 
     return (
         <Container style={{backgroundColor : "#E4E9F7"}}>
-
             <ToastContainer
                 position="top-center"
                 autoClose={2000}
@@ -54,7 +55,7 @@ export const EncaminharOS = () => {
             <h1>Encaminhar Ordens de serviço</h1>
             </div>
             <div style={{display: "flex", columnGap: "10px"}}>
-                <label htmlFor="sel">Selecione o Assunto:</label>
+                <label htmlFor="sel" style={{paddingTop: '2px'}}>Selecione o Assunto:</label>
                 <select value={select} onChange={e=>setSelect(e.target.value)} style={{border: '2px solid black', borderRadius: '6px'}}>
                     <option>Recolha de equipamentos</option>
                     <option>Liberação de portas</option>
@@ -64,17 +65,20 @@ export const EncaminharOS = () => {
             <br />
             {loading && <MiniLoading />}
             {os.map((ordem, index)=> (
-                <Container1 key={ordem.id}>
+                <Container1 key={ordem.id} id='divOS'>
                     <ContainerLeft>
                         <Nome>{ordem.nomeCliente}</Nome>
                         <Endereco>{ordem.endereco}</Endereco>
                         <Id>{ordem.id}</Id>
                     </ContainerLeft>
                     <ContainerRight>
-                        <input type="checkbox" checked={ordem.isAdded} onChange={(e)=> handleonChange(e, index)}/>
+                        <input type="checkbox" className='check' onChange={(e)=> handleonChange(e, index)}/>
                     </ContainerRight>
                 </Container1>
             ))}
+            <div style={{paddingBottom: '10px'}}>
+                <ButtonEncaminhar onClick={handleRegister()}>Encaminhar</ButtonEncaminhar>
+            </div>
         </Container>
     );
 }
